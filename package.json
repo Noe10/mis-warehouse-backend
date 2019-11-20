@@ -1,0 +1,33 @@
+{
+    "name": "mis-warehouse-backend",
+    "version": "1.0.0",
+    "description": "asd is the ultimate mis solution",
+    "main": "src/server.js",
+    "scripts": {
+        "setup": "npm install && npm update",
+        "start": "node src/server.js"
+    },
+    "keywords": [
+        "express",
+        "backend",
+        "asd"
+    ],
+    "license": "GNU-3.0",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "has-keys": "^0.1.0",
+        "mandatoryenv": "^1.1.1",
+        "module-alias": "^2.2.2",
+        "mongodb": "^3.3.3",
+        "morgan": "^1.9.1",
+        "socket.io": "^2.3.0",
+        "socketio-wildcard": "^2.0.0"
+    },
+    "_moduleAliases": {
+        "@root": "src",
+        "@controllers": "src/controllers",
+        "@models": "src/models",
+        "@util": "src/util",
+        "@events": "src/events"
+    }
+}
