@@ -1,8 +1,6 @@
 
 // Register module/require aliases
-
 require('module-alias/register');
-
 
 // Load .env Enviroment Variables to process.env
 
@@ -11,12 +9,10 @@ require('mandatoryenv').load([
     'PORT'
 ]);
 
-
 // Require dependencies
 
 const http = require('http');
 const socketio = require('socket.io');
-
 
 const { PORT } = process.env;
 
