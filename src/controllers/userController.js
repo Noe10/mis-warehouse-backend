@@ -1,6 +1,6 @@
 const s = require('http-status');
 
-const userModel = require('@models/users.js');
+const userModel = require('../models/users.js');
 
 
 const has = require('has-keys');

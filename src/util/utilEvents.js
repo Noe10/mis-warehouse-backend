@@ -1,9 +1,9 @@
 /** Load events object into socket */
 function loadEvents(events, socket) {
     for (const key in events) {
-        for (const evt in events[key]) {
-            const fn = events[key][evt];
-            const event = key+":"+evt;
+        for (const method in events[key]) {
+            const fn = events[key][method];
+            const event = key+":"+method;
             socket.on(event, (data) => {
                 fn(socket, data);
             })
@@ -15,9 +15,9 @@ function loadEvents(events, socket) {
 function listEvents(events) {
     console.log("Cargando eventos disponibles: ");
     for (const key in events) {
-        for (const evt in events[key]) {
-            const event = key+":"+evt;
-            console.log("Evento: ", event);
+        for (const method in events[key]) {
+            const event = key+":"+method;
+            console.log("\t > ", event);
         }
     }
 }

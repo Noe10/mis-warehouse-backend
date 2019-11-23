@@ -1,39 +1,14 @@
-let goods = [
-    {
-        _id: 'abc1',
-        name: "leche",
-        category: "lacteos",
-        stock: 50,
-        proveedor: 'bbb2',
-        details: {
-            expiration: '2020-10-11'
-        }
-    },
-    {
-        _id: 'abc2',
-        name: "chocolate",
-        category: "dulces",
-        stock: 12,
-        proveedor: 'bbb2',
-        details: {
-            expiration: '2020-10-11'
-        }
-    },
-    {
-        _id: 'abc3',
-        name: "papas",
-        category: "verduras",
-        stock: 31,
-        proveedor: 'ccc3',
-        details: {
-            expiration: '2020-10-11'
-        }
-    }
-]
+const database = require('../models/database.js');
 
 module.exports = {
 
     async getAll() {
+        let dbo = await database.getDbo();
+
+        let data = dbo.collection('goods').find();
+
+        console.log(data);
+        
         return goods;
     },
 

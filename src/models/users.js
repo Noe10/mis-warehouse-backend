@@ -1,7 +1,7 @@
 
 const Sequelize = require('sequelize');
 
-const db = require('@models/database.js');
+const db = require('../models/database.js');
 
 const user = db.define('users', {
     id: {
