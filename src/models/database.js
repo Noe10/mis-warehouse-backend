@@ -2,7 +2,9 @@ const {
     DB_URL
 } = process.env;
 
-const {MongoClient} = require("mongodb");
+const {MongoClient, ObjectId} = require("mongodb");
+
+global.ObjectId = ObjectId;
 
 let conn = new MongoClient(DB_URL, {useUnifiedTopology: true});
 

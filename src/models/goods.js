@@ -5,37 +5,42 @@ module.exports = {
     async getAll() {
         let dbo = await database.getDbo();
 
-        let data = dbo.collection('goods').find();
+        return await dbo.collection('goods').find().toArray();
+    },
 
-        console.log(data);
+    async search(good) {
+        let dbo = await database.getDbo();
+
+        let {_id} = good;
+
+        return await dbo.collection('goods').find({_id: new ObjectId(_id)}).toArray();
+    },
+
+    async create(good) {
+        let dbo = await database.getDbo();
+        try {
+            await dbo.collection('goods').insertOne(good);
+        } catch (error) {
+            console.log(error);
+            
+        }
+    },
+
+    async update(good) {
+        let dbo = await database.getDbo();
+
+        let {_id} = good;
+        delete good._id;
+
+        await dbo.collection('goods').updateOne({_id:  new ObjectId(_id)},{$set: good});
+    },
+
+    async delete(good) {
+        let dbo = await database.getDbo();
+
+        let {_id} = good;
         
-        return goods;
-    },
-
-    async search(_id) {
-        for (const g of goods) {
-            if(_id === g._id)
-                return g;
-        }
-    },
-
-    async create(g) {
-        goods.push(g);
-    },
-
-    async update(g) {
-        for (const i in goods) {
-            if(goods[i]._id === g._id)
-                goods[i] = g;
-        }
-    },
-
-    async delete(_id) {
-        for (const i in goods) {
-            if(goods[i]._id === _id)
-                delete goods[i];
-        }
-
+        await dbo.collection('goods').deleteOne({_id: new ObjectId(_id)});
     }
 
 }

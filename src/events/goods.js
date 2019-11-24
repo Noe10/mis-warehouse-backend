@@ -1,34 +1,25 @@
-const  modelGoods = require('../models/goods');
-module.exports = {
-    async create(socket,data){
-       let resul = await modelGoods.create(data);
-    console.log("datos registrados correctamente", resul);
-    
-    },
-    async getall(){
-        let resul = await modelGoods.getAll();
-        console.log('Listando informacion', resul);
-        
-    },
-    async search( data){
-        let { id } = data;
-        let resul = await modelGoods.search(id);
-        if(resul.lenght > 0 ){
-            console.log('the information is ',{resul});
-        }else{
-            console.log('don´t exist infomation');
-            
-        }
-    },
-    async update(data){
-        let resul = await modelGoods.update(data);
-        console.log('datos actualizados correctamente', resul);
-        
-    }, 
-    async delete(data){
-        let resul = await modelGoods.delete(data);
-        console.log('datos eliminados correctamente', resul);
-        
-    }
+const modelGoods = require('../models/goods');
 
+module.exports = {
+    async create(socket, data) {
+        await modelGoods.create(data);
+    },
+
+    async getall(socket, data) {
+        let result = await modelGoods.getAll();
+        socket.emit(socket.event, result);
+    },
+
+    async search(socket, data) {
+        let result = await modelGoods.search(data);
+        socket.emit(socket.event, result);
+    },
+
+    async update(socket, data) {
+        await modelGoods.update(data);
+    },
+
+    async delete(socket, data) {
+        await modelGoods.delete(data);
+    }
 }

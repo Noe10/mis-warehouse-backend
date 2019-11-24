@@ -1,3 +1,12 @@
+function fixData(data) {
+    if(typeof data === "string"){
+        try {
+            return JSON.parse(data);
+        } catch (error) {}
+    }
+    return data;
+}
+
 /** Load events object into socket */
 function loadEvents(events, socket) {
     for (const key in events) {
@@ -5,7 +14,8 @@ function loadEvents(events, socket) {
             const fn = events[key][method];
             const event = key+":"+method;
             socket.on(event, (data) => {
-                fn(socket, data);
+                socket.event = event;
+                fn(socket, fixData(data));
             })
         }
     }
