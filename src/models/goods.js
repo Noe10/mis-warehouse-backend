@@ -1,66 +1,46 @@
-let goods = [
-    {
-        _id: 'abc1',
-        name: "leche",
-        category: "lacteos",
-        stock: 50,
-        proveedor: 'bbb2',
-        details: {
-            expiration: '2020-10-11'
-        }
-    },
-    {
-        _id: 'abc2',
-        name: "chocolate",
-        category: "dulces",
-        stock: 12,
-        proveedor: 'bbb2',
-        details: {
-            expiration: '2020-10-11'
-        }
-    },
-    {
-        _id: 'abc3',
-        name: "papas",
-        category: "verduras",
-        stock: 31,
-        proveedor: 'ccc3',
-        details: {
-            expiration: '2020-10-11'
-        }
-    }
-]
+const database = require('../models/database.js');
 
 module.exports = {
 
     async getAll() {
-        return goods;
+        let dbo = await database.getDbo();
+
+        return await dbo.collection('goods').find().toArray();
     },
 
-    async search(_id) {
-        for (const g of goods) {
-            if(_id === g._id)
-                return g;
+    async search(good) {
+        let dbo = await database.getDbo();
+
+        let {_id} = good;
+
+        return await dbo.collection('goods').find({_id: new ObjectId(_id)}).toArray();
+    },
+
+    async create(good) {
+        let dbo = await database.getDbo();
+        try {
+            await dbo.collection('goods').insertOne(good);
+        } catch (error) {
+            console.log(error);
+            
         }
     },
 
-    async create(g) {
-        goods.push(g);
+    async update(good) {
+        let dbo = await database.getDbo();
+
+        let {_id} = good;
+        delete good._id;
+
+        await dbo.collection('goods').updateOne({_id:  new ObjectId(_id)},{$set: good});
     },
 
-    async update(g) {
-        for (const i in goods) {
-            if(goods[i]._id === g._id)
-                goods[i] = g;
-        }
-    },
+    async delete(good) {
+        let dbo = await database.getDbo();
 
-    async delete(_id) {
-        for (const i in goods) {
-            if(goods[i]._id === _id)
-                delete goods[i];
-        }
-
+        let {_id} = good;
+        
+        await dbo.collection('goods').deleteOne({_id: new ObjectId(_id)});
     }
 
 }

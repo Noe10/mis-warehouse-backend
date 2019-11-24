@@ -1,7 +1,3 @@
-
-// Register module/require aliases
-require('module-alias/register');
-
 // Load .env Enviroment Variables to process.env
 
 require('mandatoryenv').load([
@@ -19,7 +15,7 @@ const { PORT } = process.env;
 const server = http.createServer();
 const io = socketio(server);
 
-io.on('connection', require('@events/events'));
+io.on('connection', require('./events/events'));
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}...`);
