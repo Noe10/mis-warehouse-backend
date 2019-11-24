@@ -1,8 +1,7 @@
-const { loadEvents, listEvents } = require('@util/utilEvents');
+const { loadEvents, listEvents } = require('../util/utilEvents');
 
 const events = {
-    auth: require('@events/auth'),
-    goods: require('@events/goods')
+    goods: require('../events/goods')
 }
 
 listEvents(events);
